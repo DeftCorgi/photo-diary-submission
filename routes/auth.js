@@ -6,6 +6,7 @@ const googleStrategy = require('passport-google-oauth').OAuth2Strategy;
 
 // models
 const keys = require('../config/keys');
+const Datastore = require('@google-cloud/datastore');
 
 // serialize the user into the session
 passport.serializeUser((user, done) => {
