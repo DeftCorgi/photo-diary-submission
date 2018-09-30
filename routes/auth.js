@@ -10,15 +10,17 @@ const User = require('../models/user');
 
 // serialize the user into the session
 passport.serializeUser((user, done) => {
-  done(null, user.id);
+  done(null, user.entityData.id);
 });
 
 // deserialize a user from the session
 passport.deserializeUser(async (id, done) => {
   // ideally should find user from database with given id
-  const user = await User.get(id);
-  console.log(user);
-  done(null, user);
+  const user = await User.findOne({ id }).catch(err =>
+    console.log('user not found')
+  );
+  if (user) return done(null, user.plain());
+  done(null, null);
 });
 
 // setup passport to use the google OAuth2 strategy
@@ -31,9 +33,16 @@ passport.use(
     },
     async (accessToken, refreshToken, profile, done) => {
       const { id, displayName } = profile;
-      const user = { id, displayName };
-      const newUser = await new User(user);
-      console.log(newUser);
+
+      const existingUser = await User.findOne({ id }).catch(err =>
+        console.log('user not found')
+      );
+      if (existingUser) {
+        return done(null, existingUser);
+      }
+
+      const newUser = new User({ id, displayName });
+      await newUser.save();
       done(null, newUser);
     }
   )
