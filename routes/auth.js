@@ -6,7 +6,7 @@ const googleStrategy = require('passport-google-oauth').OAuth2Strategy;
 
 // models
 const keys = require('../config/keys');
-const Datastore = require('@google-cloud/datastore');
+const User = require('../models/user');
 
 // serialize the user into the session
 passport.serializeUser((user, done) => {
@@ -16,7 +16,8 @@ passport.serializeUser((user, done) => {
 // deserialize a user from the session
 passport.deserializeUser(async (id, done) => {
   // ideally should find user from database with given id
-  const user = await Users.findById(id);
+  const user = await User.get(id);
+  console.log(user);
   done(null, user);
 });
 
@@ -26,46 +27,14 @@ passport.use(
     {
       clientID: keys.googleClientId,
       clientSecret: keys.googleClientSecret,
-      callbackURL: '/api/auth/google/callback'
+      callbackURL: '/auth/google/callback'
     },
     async (accessToken, refreshToken, profile, done) => {
-      const { id, emails, displayName, language } = profile;
-
-      // search for existing user here
-      const existingUser = await GoogleUsers.findOne({
-        where: { googleId: id }
-      });
-
-      if (existingUser) {
-        console.log(
-          `existing user found: ${existingUser.googleId} ${existingUser.userId}`
-        );
-        const user = await Users.findById(existingUser.userId);
-        return done(null, user);
-      }
-
-      // build a generic User object
-      const user = Users.build({
-        email: emails[0].value,
-        displayName,
-        language: language || 'en',
-        dob: new Date()
-      });
-
-      await user.save();
-
-      // associate googleUser object with bew generic user object
-      const googleUser = GoogleUsers.build({
-        googleId: id,
-        userId: user.id
-      });
-
-      // persist to DB
-      await googleUser.save();
-
-      // if no existing user, create new user here
-      console.log('new user created id:' + googleUser.googleId, ', ' + user.id);
-      return done(null, user);
+      const { id, displayName } = profile;
+      const user = { id, displayName };
+      const newUser = await new User(user);
+      console.log(newUser);
+      done(null, newUser);
     }
   )
 );
@@ -73,13 +42,13 @@ passport.use(
 module.exports = app => {
   // user authentication routes
   app.get(
-    '/google',
+    '/auth/google',
     passport.authenticate('google', { scope: ['profile', 'email'] })
   );
 
   // callbacks
   app.get(
-    '/google/callback',
+    '/auth/google/callback',
     passport.authenticate('google', { failureRedirect: '/login' }),
     (req, res) => {
       if (!req.user.finishedRegistration) {
@@ -90,13 +59,13 @@ module.exports = app => {
   );
 
   // logout the current user
-  app.get('/logout', (req, res) => {
+  app.get('/auth/logout', (req, res) => {
     req.logout();
     res.redirect('/');
   });
 
   // returns the current user object
-  app.get('/current', (req, res) => {
+  app.get('/auth/current', (req, res) => {
     //console.log('user: ' + req.user);
     res.send(req.user);
   });
