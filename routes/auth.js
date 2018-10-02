@@ -6,18 +6,21 @@ const googleStrategy = require('passport-google-oauth').OAuth2Strategy;
 
 // models
 const keys = require('../config/keys');
-const Datastore = require('@google-cloud/datastore');
+const User = require('../models/user');
 
 // serialize the user into the session
 passport.serializeUser((user, done) => {
-  done(null, user.id);
+  done(null, user.entityData.id);
 });
 
 // deserialize a user from the session
 passport.deserializeUser(async (id, done) => {
   // ideally should find user from database with given id
-  const user = await Users.findById(id);
-  done(null, user);
+  const user = await User.findOne({ id }).catch(err =>
+    console.log('user not found')
+  );
+  if (user) return done(null, user.plain());
+  done(null, null);
 });
 
 // setup passport to use the google OAuth2 strategy
@@ -26,46 +29,21 @@ passport.use(
     {
       clientID: keys.googleClientId,
       clientSecret: keys.googleClientSecret,
-      callbackURL: '/api/auth/google/callback'
+      callbackURL: '/auth/google/callback'
     },
     async (accessToken, refreshToken, profile, done) => {
-      const { id, emails, displayName, language } = profile;
+      const { id, displayName } = profile;
 
-      // search for existing user here
-      const existingUser = await GoogleUsers.findOne({
-        where: { googleId: id }
-      });
-
+      const existingUser = await User.findOne({ id }).catch(err =>
+        console.log('user not found')
+      );
       if (existingUser) {
-        console.log(
-          `existing user found: ${existingUser.googleId} ${existingUser.userId}`
-        );
-        const user = await Users.findById(existingUser.userId);
-        return done(null, user);
+        return done(null, existingUser);
       }
 
-      // build a generic User object
-      const user = Users.build({
-        email: emails[0].value,
-        displayName,
-        language: language || 'en',
-        dob: new Date()
-      });
-
-      await user.save();
-
-      // associate googleUser object with bew generic user object
-      const googleUser = GoogleUsers.build({
-        googleId: id,
-        userId: user.id
-      });
-
-      // persist to DB
-      await googleUser.save();
-
-      // if no existing user, create new user here
-      console.log('new user created id:' + googleUser.googleId, ', ' + user.id);
-      return done(null, user);
+      const newUser = new User({ id, displayName });
+      await newUser.save();
+      done(null, newUser);
     }
   )
 );
@@ -73,13 +51,13 @@ passport.use(
 module.exports = app => {
   // user authentication routes
   app.get(
-    '/google',
+    '/auth/google',
     passport.authenticate('google', { scope: ['profile', 'email'] })
   );
 
   // callbacks
   app.get(
-    '/google/callback',
+    '/auth/google/callback',
     passport.authenticate('google', { failureRedirect: '/login' }),
     (req, res) => {
       if (!req.user.finishedRegistration) {
@@ -90,13 +68,13 @@ module.exports = app => {
   );
 
   // logout the current user
-  app.get('/logout', (req, res) => {
+  app.get('/auth/logout', (req, res) => {
     req.logout();
     res.redirect('/');
   });
 
   // returns the current user object
-  app.get('/current', (req, res) => {
+  app.get('/auth/current', (req, res) => {
     //console.log('user: ' + req.user);
     res.send(req.user);
   });

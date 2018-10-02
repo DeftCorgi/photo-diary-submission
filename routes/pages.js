@@ -3,7 +3,15 @@ module.exports = app => {
     res.render('index');
   });
 
-  app.get('/home', (req, res) => {
+  app.get('/entry/new', (req, res) => {
+    res.render('home');
+  });
+
+  app.post('/entry/new', (req, res) => {
+    res.render('home');
+  });
+
+  app.delete('/entry/:id', (req, res) => {
     res.render('home');
   });
 };
