@@ -5,7 +5,7 @@ const keys = {
     '698580411020-7tll3eeclqg132gbp12enniu1imnu8o0.apps.googleusercontent.com',
   googleClientSecret: 'ZqEN2Obk2a3zfxGKuGVzCFol',
   googleProjectId: 'conductive-coil-217803',
-  gcsBucketName: '',
+  gcsBucketName: 'cc-photo-diary-photos',
   dbString: '',
   cookieKey: '882D13973475A3FABD57A13F1C148'
 };

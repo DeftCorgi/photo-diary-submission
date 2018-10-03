@@ -1,5 +1,17 @@
+const keys = require('../config/keys');
 const Entry = require('../models/entry');
 const User = require('../models/user');
+
+// setup multipart form processing
+const multer = require('multer');
+const gcs = require('multer-sharp');
+const storage = gcs({
+  bucket: keys.gcsBucketName,
+  projectId: keys.googleProjectId,
+  keyFilename: './config/gcp.json',
+  size: { width: 350, height: 350 }
+});
+const photoInput = multer({ storage });
 
 module.exports = app => {
   app.get('/', async (req, res) => {
@@ -12,7 +24,7 @@ module.exports = app => {
     res.render('home');
   });
 
-  app.post('/entry/new', (req, res) => {
+  app.post('/entry/new', photoInput.single('photo'), (req, res) => {
     const { title, description } = req.body;
     const newEntry = new Entry({ title, description });
     res.render('home');
