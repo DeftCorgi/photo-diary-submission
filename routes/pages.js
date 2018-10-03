@@ -7,6 +7,18 @@ module.exports = app => {
     res.render('home');
   });
 
+  app.get('/entry/view/:id', (req, res) => {
+    res.render('home');
+  });
+
+  app.get('/entry/edit/:id', (req, res) => {
+    res.render('home');
+  });
+
+  app.patch('/entry/edit/:id', (req, res) => {
+    res.render('home');
+  });
+
   app.post('/entry/new', (req, res) => {
     res.render('home');
   });
