@@ -7,7 +7,7 @@ const keys = {
   googleProjectId: 'conductive-coil-217803',
   gcsBucketName: '',
   dbString: '',
-  cookieKey: 'holaamiga'
+  cookieKey: '882D13973475A3FABD57A13F1C148'
 };
 
 module.exports = keys;
