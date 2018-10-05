@@ -1,20 +1,44 @@
+@import url('https://fonts.googleapis.com/css?family=Sacramento');
+@import url('https://fonts.googleapis.com/css?family=Dancing Script');
+@import url('https://fonts.googleapis.com/css?family=Roboto');
+
+html {
+    background: #E8E8E9;
+}
 .title {
     text-align: center;
-    border: solid black;
+    margin-bottom: 15%;
+    margin-top: 10%;
+    width: 100%;
+}
+h1 {
+    font-size: 100px;
+    font-family: 'Sacramento', cursive;
+    color: #2B303A;
+}
+h1::after {
+    z-index: -1;
+    content: attr(data-content);
+  }
+.content {
+    display: flex;
+    text-align: center;
+    margin-bottom: 100px;
+    
 }
 .entries {
-    border: solid cadetblue;
+    border-left: solid #2B303A;
     width: 100%;
     
 }
-.content {
-    display: flex;
-    border: solid black;  
-    
+body {
+    /* border: solid black;   */
 }
 .nav {
+    padding-right: 5px;
+    border-right: #2B303B;
+    padding-left: 5px;
     
-    border: solid red;
     
 }
 ul {
@@ -22,8 +46,10 @@ ul {
     margin: 0;
     padding: 0;
     width: 200px;
-    background-color: #f1f1f1;
     text-align: center;
+    color: #2B303A;
+    font-size: 30px;
+    font-family: 'Roboto';
 }
 
 li a {
@@ -35,6 +61,15 @@ li a {
 
 /* Change the link color on hover */
 li a:hover {
-    background-color: #555;
+    border-radius: 3px;
+    background-color: #725AC1;
     color: white;
+}
+
+.footer {
+
+    margin: 5px;
+    text-align: center;
+    border-top: solid #2A324B;
+    font-family: 'Roboto';
 }

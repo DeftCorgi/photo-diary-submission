@@ -4,20 +4,14 @@
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <div class="title"><h1>Photo Diary</h1></div>
+    <%- include('partials/title'); %>
     <div class="content">
-        <div class="nav">
-            <ul>
-            <li><a href="#home">Home</a></li>
-            <li><a href="#news">Add Entry</a></li>
-            <li><a href="#contact">Delete Entry</a></li>
-            </ul>
-        </div>
-        <div class="entries"
+        <%- include('partials/nav'); %>
+        <div class="entries">
             <%- body %>
         </div>
     </div>
-</div>
+    <%- include('partials/footer'); %>
 
 </body>
 

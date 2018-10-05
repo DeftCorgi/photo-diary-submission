@@ -17,11 +17,11 @@ module.exports = app => {
   app.get('/', async (req, res) => {
     // const userEntries = req.user.entries;
     // const entries = await Entry.get(userEntries).catch(err => {});
-    res.render('index');
+    res.render('landing', {layout: 'blank'});
   });
 
   app.get('/entry/new', (req, res) => {
-    res.render('home');
+    res.render('home', {layout: 'layout'});
   });
 
   app.post('/entry/new', photoInput.single('photo'), (req, res) => {
