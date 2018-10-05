@@ -16,6 +16,9 @@ h1 {
     font-family: 'Sacramento', cursive;
     color: #2B303A;
 }
+h1:hover {
+    color: #725AC1;
+}
 h1::after {
     z-index: -1;
     content: attr(data-content);
