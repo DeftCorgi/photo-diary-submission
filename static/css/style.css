@@ -26,11 +26,9 @@ h1::after {
     margin-bottom: 100px;
     
 }
-.entries {
-    border-left: solid #2B303A;
-    width: 100%;
-    
-}
+
+
+
 body {
     /* border: solid black;   */
 }
@@ -38,7 +36,6 @@ body {
     padding-right: 5px;
     border-right: #2B303B;
     padding-left: 5px;
-    
     
 }
 ul {
@@ -72,4 +69,24 @@ li a:hover {
     text-align: center;
     border-top: solid #2A324B;
     font-family: 'Roboto';
+}
+
+.entries {
+    border-left: solid #2B303A;
+    width: 100%;
+    display: Flex;
+    flex-wrap: wrap;
+    
+}
+
+.photo {
+    background: white;
+    border: solid white;
+    margin: 20px;
+    padding: 10px;
+    
+}
+.caption {
+    font-family: 'Sacramento';
+    font-size: 30px;
 }

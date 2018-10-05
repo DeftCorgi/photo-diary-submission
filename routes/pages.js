@@ -20,6 +20,12 @@ module.exports = app => {
     res.render('landing', {layout: 'blank'});
   });
 
+  app.get('/home', async (req, res) => {
+    // const userEntries = req.user.entries;
+    // const entries = await Entry.get(userEntries).catch(err => {});
+    res.render('home', {layout: 'layout'});
+  });
+
   app.get('/entry/new', (req, res) => {
     res.render('home', {layout: 'layout'});
   });

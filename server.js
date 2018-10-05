@@ -22,6 +22,7 @@ app.use(passport.initialize());
 app.use(passport.session());
 app.use(bodyParser.json());
 app.use(express.static(path.join(__dirname, 'static/css')));
+app.use(express.static(path.join(__dirname, 'static/image')));
 
 // connect datastore with model package
 const datastore = new Datastore({
