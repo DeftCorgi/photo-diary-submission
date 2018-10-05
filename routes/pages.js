@@ -20,6 +20,9 @@ module.exports = app => {
     // res.render('home', { entries });
     res.render('landing', {layout: 'blank'});
   });
+  app.get('/home', (req, res) => {
+    res.render('home', {layout: 'layout'});
+  });
 
   app.get('/entry/new', (req, res) => {
     res.render('home', {layout: 'layout'});
