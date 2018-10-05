@@ -1,13 +1,13 @@
-.title {
+.content {
     text-align: center;
-    border: solid black;
+    border: solid red;
 }
 .entries {
     border: solid cadetblue;
     width: 100%;
     
 }
-.content {
+body {
     display: flex;
     border: solid black;  
     
