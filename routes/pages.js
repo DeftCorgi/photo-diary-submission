@@ -17,7 +17,13 @@ module.exports = app => {
   app.get('/', async (req, res) => {
     // const userEntries = req.user.entries;
     // const entries = await Entry.get(userEntries).catch(err => {});
-    res.render('landing', {layout: 'blank'});
+    res.render('landing', {User});
+  });
+
+  app.get('/home', async (req, res) => {
+    const userEntries = req.user.entries;
+    const entries = await Entry.get(userEntries).catch(err => {});
+    res.render('home', {layout: 'layout'});
   });
 
   app.get('/entry/new', (req, res) => {
@@ -32,7 +38,7 @@ module.exports = app => {
 
   app.get('/entry/view/:id', async (req, res) => {
     const entry = await Entry.findOne({ id: req.params.id });
-    res.render('home', { entry });
+    res.render('view', { entry });
   });
 
   app.get('/entry/edit/:id', async (req, res) => {

@@ -7,7 +7,7 @@ html {
 }
 .title {
     text-align: center;
-    margin-bottom: 15%;
+    margin-bottom: 10%;
     margin-top: 10%;
     width: 100%;
 }
@@ -26,11 +26,9 @@ h1::after {
     margin-bottom: 100px;
     
 }
-.entries {
-    border-left: solid #2B303A;
-    width: 100%;
-    
-}
+
+
+
 body {
     /* border: solid black;   */
 }
@@ -38,7 +36,6 @@ body {
     padding-right: 5px;
     border-right: #2B303B;
     padding-left: 5px;
-    
     
 }
 ul {
@@ -72,4 +69,61 @@ li a:hover {
     text-align: center;
     border-top: solid #2A324B;
     font-family: 'Roboto';
+}
+
+.entries {
+    border-left: solid #2B303A;
+    width: 100%;
+    display: Flex;
+    flex-wrap: wrap;
+    
+}
+
+.photo {
+    background: white;
+    border: solid white;
+    margin: 20px;
+    padding: 10px;
+    border-radius: 5px;
+    
+}
+.photo:hover {
+     box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+}
+.caption {
+    font-family: 'Sacramento';
+    font-size: 30px;
+}
+
+.button {
+    display: inline-block;
+    padding: 15px 25px;
+    font-size: 24px;
+    cursor: pointer;
+    text-align: center;
+    text-decoration: none;
+    outline: none;
+    color: #fff;
+    background-color: #725AC1;
+    border: none;
+    border-radius: 15px;
+    box-shadow: 0 9px #53428D;
+    font-family: 'Roboto';
+    margin-bottom: 40%;
+  }
+  
+  .button:hover {background-color: #725AC1}
+  
+  .button:active {
+    background-color: #725AC1;
+    box-shadow: 0 5px #53428D;
+    transform: translateY(4px);
+  }
+  .landing {
+    text-align: center;
+    border-radius: 10px;
+}
+.para {
+    margin-bottom: 15%;
+    font-family: 'Roboto'
 }
