@@ -17,7 +17,7 @@ module.exports = app => {
   app.get('/', async (req, res) => {
     // const userEntries = req.user.entries;
     // const entries = await Entry.get(userEntries).catch(err => {});
-    res.render('landing', {User});
+    res.render('home', {User: req.user});
   });
 
   app.get('/home', async (req, res) => {
@@ -27,13 +27,13 @@ module.exports = app => {
   });
 
   app.get('/entry/new', (req, res) => {
-    res.render('home', {layout: 'layout'});
+    res.render('new', {layout: 'layout'});
   });
 
   app.post('/entry/new', photoInput.single('photo'), (req, res) => {
     const { title, description } = req.body;
     const newEntry = new Entry({ title, description });
-    res.render('home');
+    res.render('new', {layout: 'layout'});
   });
 
   app.get('/entry/view/:id', async (req, res) => {
