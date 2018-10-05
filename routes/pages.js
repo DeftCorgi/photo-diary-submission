@@ -15,9 +15,10 @@ const photoInput = multer({ storage });
 
 module.exports = app => {
   app.get('/', async (req, res) => {
-    const userEntries = req.user.entries;
-    const entries = await Entry.get(userEntries).catch(err => {});
-    res.render('index', { entries });
+    // const userEntries = req.user.entries;
+    // const entries = await Entry.get(userEntries).catch(err => {});
+    // res.render('home', { entries });
+    res.render('home');
   });
 
   app.get('/entry/new', (req, res) => {
