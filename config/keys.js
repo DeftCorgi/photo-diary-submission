@@ -1,8 +1,13 @@
-// keys will be kept in this file. dependign on ENV
-// will either export production or dev keys
+// development keys
+// do NOT commit this file to github, secret information
+const keys = {
+  googleClientId:
+    '698580411020-7tll3eeclqg132gbp12enniu1imnu8o0.apps.googleusercontent.com',
+  googleClientSecret: 'ZqEN2Obk2a3zfxGKuGVzCFol',
+  googleProjectId: 'conductive-coil-217803',
+  gcsBucketName: 'cc-photo-diary-photos',
+  dbString: '',
+  cookieKey: '882D13973475A3FABD57A13F1C148'
+};
 
-if (process.env.NODE_ENV === 'production') {
-  module.exports = require('./prod');
-} else {
-  module.exports = require('./dev');
-}
+module.exports = keys;
