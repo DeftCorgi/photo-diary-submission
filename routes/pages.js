@@ -21,7 +21,7 @@ module.exports = app => {
   });
 
   app.get('/', async (req, res) => {
-    // iser user not logged then render landing
+    // if user not logged then render landing
     if (req.user) return res.redirect('/home');
     res.render('landing');
   });
@@ -29,18 +29,27 @@ module.exports = app => {
   app.get('/home', async (req, res) => {
     const userEntries = req.user.entries;
     const entries = await Entry.get(userEntries).catch(err => {});
-    res.render('home', { entries });
-    console.log({userEntries});
+    console.log(entries.plain());
+    res.render('home', { entries: [entries.plain()] });
   });
 
   app.get('/entry/new', (req, res) => {
     res.render('new');
   });
 
-  app.post('/entry/new', photoInput.single('photo'), (req, res) => {
+  app.post('/entry/new', photoInput.single('photo'), async (req, res) => {
     const { title, description } = req.body;
     const photoUrl = req.file.path;
-    const entry = new Entry({ title, description, photoUrl });
+    const entry = await new Entry({ title, description, photoUrl });
+    await entry.save();
+    // get logged in user and their entries
+    const user = await User.findOne({ id: req.user.id }).catch(err =>
+      console.log('user not found')
+    );
+    // update the user object
+    await User.update(user.entityKey.id, {
+      entries: [entry.entityKey.id]
+    }).catch(err => console.log(err));
     res.render('view', { entry });
     console.log(req.user.entries);
   });
