@@ -42,8 +42,8 @@ ul {
     list-style-type: none;
     margin: 0;
     padding: 0;
-    width: 200px;
-    text-align: center;
+    width: 170px;
+    text-align: left;
     color: #2B303A;
     font-size: 30px;
     font-family: 'Roboto';
@@ -76,6 +76,7 @@ li a:hover {
     width: 100%;
     display: Flex;
     flex-wrap: wrap;
+    
     
 }
 
@@ -132,4 +133,28 @@ li a:hover {
 .para {
     margin-bottom: 15%;
     font-family: 'Roboto'
+}
+
+.form {
+    text-align: left;
+    border: solid white;
+    background: white;
+    border-radius: 5px;
+    padding: 10px;
+    font-family: 'Roboto';
+    margin: 20px;
+    
+}
+.prop {
+    padding: 10px;
+}
+.fButt {
+    
+    text-align: right;
+    padding-right: 20px;
+}
+form {
+    width: 100%;
+    text-align: center;
+    
 }
