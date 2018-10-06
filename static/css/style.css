@@ -16,6 +16,9 @@ h1 {
     font-family: 'Sacramento', cursive;
     color: #2B303A;
 }
+h1:hover {
+    color: #725AC1;
+}
 h1::after {
     z-index: -1;
     content: attr(data-content);
@@ -26,8 +29,6 @@ h1::after {
     margin-bottom: 100px;
     
 }
-
-
 
 body {
     /* border: solid black;   */
@@ -42,8 +43,8 @@ ul {
     list-style-type: none;
     margin: 0;
     padding: 0;
-    width: 200px;
-    text-align: center;
+    width: 170px;
+    text-align: left;
     color: #2B303A;
     font-size: 30px;
     font-family: 'Roboto';
@@ -77,9 +78,11 @@ li a:hover {
     display: Flex;
     flex-wrap: wrap;
     
+    
 }
 
 .photo {
+    position: relative;
     background: white;
     border: solid white;
     margin: 20px;
@@ -90,6 +93,33 @@ li a:hover {
 }
 .photo:hover {
      box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+}
+.photo:hover .overlay {
+    opacity: 1;
+}
+.overlay {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 90%;
+    right: 0%;
+    height: 12.5%;
+    width: 15%;
+    opacity: 0;
+    transition: .3s ease;
+    background-color: red;
+    border-radius: 150%;
+}
+.delete {
+    color: white;
+    font-size: 25px;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    -ms-transform: translate(-50%, -50%);
+    text-align: center;
+    text-decoration: none;
 }
 .caption {
     font-family: 'Sacramento';
@@ -133,3 +163,27 @@ li a:hover {
     margin-bottom: 15%;
     font-family: 'Roboto'
 }
+.form {
+    text-align: left;
+    border: solid white;
+    background: white;
+    border-radius: 5px;
+    padding: 10px;
+    font-family: 'Roboto';
+    margin: 20px;
+    
+}
+.prop {
+    padding: 10px;
+}
+.fButt {
+    
+    text-align: right;
+    padding-right: 20px;
+}
+form {
+    width: 100%;
+    text-align: center;
+    
+}
+
