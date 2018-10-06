@@ -87,6 +87,7 @@ li a:hover {
     padding: 10px;
     border-radius: 5px;
     
+    
 }
 .photo:hover {
      box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
@@ -94,6 +95,11 @@ li a:hover {
 .caption {
     font-family: 'Sacramento';
     font-size: 30px;
+    text-decoration: none;
+}
+.view {
+    text-decoration: none;
+    color: black;
 }
 
 .button {
