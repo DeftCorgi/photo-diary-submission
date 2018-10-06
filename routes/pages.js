@@ -15,12 +15,11 @@ const photoInput = multer({ storage });
 
 module.exports = app => {
   app.get('/', async (req, res) => {
-    let partial = 'index';
+    let partial = 'home';
 
     // iser user not logged then render landing
     if (!req.user) partial = 'landing';
     res.render(partial, { user: req.user });
-
   });
 
   app.get('/home', async (req, res) => {
@@ -30,15 +29,13 @@ module.exports = app => {
   });
 
   app.get('/entry/new', (req, res) => {
-
-    res.render('new', {layout: 'layout'});
-
+    res.render('new', { layout: 'layout' });
   });
 
   app.post('/entry/new', photoInput.single('photo'), (req, res) => {
     const { title, description } = req.body;
     const newEntry = new Entry({ title, description });
-    res.render('new', {layout: 'layout'});
+    res.render('new', { layout: 'layout' });
   });
 
   app.get('/entry/view/:id', async (req, res) => {
