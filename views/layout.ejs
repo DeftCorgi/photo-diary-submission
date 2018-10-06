@@ -5,14 +5,16 @@
 </head>
 <body>
     <%- include('partials/title'); %>
-    <div class="content">
-        <% if(typeof user != 'undefined') { %>
+    <% if(typeof user === 'undefined') { %>
+        <%- body %>
+    <% } else { %>
+        <div class="content">
             <%- include('partials/nav') %>
-        <% } %>
-        <div class="entries">
-            <%- body %>
+            <div class="entries">
+                <%- body %>
+            </div>
         </div>
-    </div>
+    <% } %>
     <%- include('partials/footer'); %>
 </body>
 
