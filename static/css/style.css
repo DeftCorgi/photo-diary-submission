@@ -16,6 +16,9 @@ h1 {
     font-family: 'Sacramento', cursive;
     color: #2B303A;
 }
+h1:hover {
+    color: #725AC1;
+}
 h1::after {
     z-index: -1;
     content: attr(data-content);
@@ -26,8 +29,6 @@ h1::after {
     margin-bottom: 100px;
     
 }
-
-
 
 body {
     /* border: solid black;   */
@@ -81,6 +82,7 @@ li a:hover {
 }
 
 .photo {
+    position: relative;
     background: white;
     border: solid white;
     margin: 20px;
@@ -91,6 +93,33 @@ li a:hover {
 }
 .photo:hover {
      box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+}
+.photo:hover .overlay {
+    opacity: 1;
+}
+.overlay {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 90%;
+    right: 0%;
+    height: 12.5%;
+    width: 15%;
+    opacity: 0;
+    transition: .3s ease;
+    background-color: red;
+    border-radius: 150%;
+}
+.delete {
+    color: white;
+    font-size: 25px;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    -ms-transform: translate(-50%, -50%);
+    text-align: center;
+    text-decoration: none;
 }
 .caption {
     font-family: 'Sacramento';
@@ -134,7 +163,6 @@ li a:hover {
     margin-bottom: 15%;
     font-family: 'Roboto'
 }
-
 .form {
     text-align: left;
     border: solid white;
@@ -158,3 +186,4 @@ form {
     text-align: center;
     
 }
+
