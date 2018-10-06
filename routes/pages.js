@@ -14,12 +14,18 @@ const storage = gcs({
 const photoInput = multer({ storage });
 
 module.exports = app => {
+  // middleware to save user
+  app.use((req, res, next) => {
+    res.locals.user = req.user;
+    next();
+  });
+
   app.get('/', async (req, res) => {
     let partial = 'home';
 
     // iser user not logged then render landing
     if (!req.user) partial = 'landing';
-    res.render(partial, { user: req.user });
+    res.render(partial);
   });
 
   app.get('/home', async (req, res) => {
