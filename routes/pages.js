@@ -30,6 +30,7 @@ module.exports = app => {
     const userEntries = req.user.entries;
     const entries = await Entry.get(userEntries).catch(err => {});
     res.render('home', { entries });
+    console.log({userEntries});
   });
 
   app.get('/entry/new', (req, res) => {
@@ -41,6 +42,7 @@ module.exports = app => {
     const photoUrl = req.file.path;
     const entry = new Entry({ title, description, photoUrl });
     res.render('view', { entry });
+    console.log(req.user.entries);
   });
 
   app.get('/entry/view/:id', async (req, res) => {

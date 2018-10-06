@@ -9,7 +9,7 @@
         </div>
     </a> 
 </div>
-<div class="photo"> 
+<!-- <div class="photo"> 
       <a class="view" href="/entry/view/:id">
         <img src="ToanAu_corgi.jpg" width=250 height=250 /> 
         <div class="overlay">
@@ -52,4 +52,14 @@
             its a corgi deal with it
         </div>
       </a>
-</div>
+</div> -->
+<%for (var entry in entries) {%>
+    <div class="photo"> 
+        <a class="view" href="/entry/view/:id">
+            <img src="<%= entry.photoUrl %>"/> 
+            <div class="caption">
+                <%= entry.title %>
+            </div>
+        </a>
+    </div>
+<%}%>
