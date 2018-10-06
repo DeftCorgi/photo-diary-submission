@@ -4,20 +4,16 @@
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <% if (!user) { %>
-        <%- include('partials/title'); %>
-        <%- body %>
-    <% } else { %>
-        <%- include('partials/title'); %>
-        <div class="content">
-            <%- include('partials/nav'); %>
-            <div class="entries">
-                <%- body %>
-            </div>
+    <%- include('partials/title'); %>
+    <div class="content">
+        <% if(typeof user != 'undefined') { %>
+            <%- include('partials/nav') %>
+        <% } %>
+        <div class="entries">
+            <%- body %>
         </div>
-    <% } %>
+    </div>
     <%- include('partials/footer'); %>
-
 </body>
 
 </html>
