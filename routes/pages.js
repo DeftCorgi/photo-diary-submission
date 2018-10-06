@@ -21,17 +21,15 @@ module.exports = app => {
   });
 
   app.get('/', async (req, res) => {
-    let partial = 'home';
-
     // iser user not logged then render landing
-    if (!req.user) partial = 'landing';
-    res.render(partial);
+    if (req.user) return res.redirect('/home');
+    res.render('landing');
   });
 
   app.get('/home', async (req, res) => {
     const userEntries = req.user.entries;
     const entries = await Entry.get(userEntries).catch(err => {});
-    res.render('home');
+    res.render('home', { entries });
   });
 
   app.get('/entry/new', (req, res) => {
