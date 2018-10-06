@@ -1,21 +1,16 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="/style.css">
 </head>
 <body>
-    <% if (!user) { %>
-        <%- include('partials/title'); %>
-        <%- body %>
-    <% } else { %>
-        <%- include('partials/title'); %>
-        <div class="content">
-            <%- include('partials/nav'); %>
-            <div class="entries">
-                <%- body %>
-            </div>
+    <%- include('partials/title'); %>
+    <div class="content">
+        <%- include('partials/nav'); %>
+        <div class="entries">
+            <%- body %>
         </div>
-    <% } %>
+    </div>
     <%- include('partials/footer'); %>
 
 </body>
