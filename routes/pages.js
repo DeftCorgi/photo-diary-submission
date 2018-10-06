@@ -31,17 +31,18 @@ module.exports = app => {
   app.get('/home', async (req, res) => {
     const userEntries = req.user.entries;
     const entries = await Entry.get(userEntries).catch(err => {});
-    res.render('home', { layout: 'layout' });
+    res.render('home');
   });
 
   app.get('/entry/new', (req, res) => {
-    res.render('new', { layout: 'layout' });
+    res.render('new');
   });
 
   app.post('/entry/new', photoInput.single('photo'), (req, res) => {
     const { title, description } = req.body;
-    const newEntry = new Entry({ title, description });
-    res.render('new', { layout: 'layout' });
+    const photoUrl = req.file.path;
+    const entry = new Entry({ title, description, photoUrl });
+    res.render('view', { entry });
   });
 
   app.get('/entry/view/:id', async (req, res) => {
