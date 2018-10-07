@@ -189,4 +189,10 @@ form {
 .desc {
     width: 100%;
 }
+.empty {
+    width: 100%;
+    font-family: 'Roboto';
+    color: #2B303A;
+    padding: 70px;
+}
 
