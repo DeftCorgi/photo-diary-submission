@@ -29,8 +29,11 @@ module.exports = app => {
   app.get('/home', async (req, res) => {
     const userEntries = req.user.entries;
     let entries;
-    entries = await Entry.get(userEntries).catch(err => (entries = []));
+    entries = await Entry.get(userEntries)
+      .then(e => (entries = [e.plain()]))
+      .catch(err => (entries = []));
 
+    console.log(entries);
     res.render('home', { entries });
   });
 
