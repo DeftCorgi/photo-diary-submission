@@ -35,6 +35,7 @@ module.exports = app => {
 
     console.log(entries);
     res.render('home', { entries });
+    console.log({entries})
   });
 
   app.get('/entry/new', (req, res) => {
@@ -55,6 +56,7 @@ module.exports = app => {
       entries: [entry.entityKey.id]
     }).catch(err => console.log(err));
     res.render('view', { entry });
+    console.log(req.user.entries);
   });
 
   app.get('/entry/view/:id', async (req, res) => {
