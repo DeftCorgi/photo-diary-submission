@@ -32,6 +32,7 @@ module.exports = app => {
     entries = await Entry.get(userEntries).catch(err => (entries = []));
 
     res.render('home', { entries });
+    console.log({entries})
   });
 
   app.get('/entry/new', (req, res) => {
