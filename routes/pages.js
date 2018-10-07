@@ -32,10 +32,8 @@ module.exports = app => {
     entries = await Entry.get(userEntries)
       .then(e => (entries = [e.plain()]))
       .catch(err => (entries = []));
-
     console.log(entries);
     res.render('home', { entries });
-    console.log({entries})
   });
 
   app.get('/entry/new', (req, res) => {
