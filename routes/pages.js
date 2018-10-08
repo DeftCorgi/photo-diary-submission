@@ -34,7 +34,7 @@ module.exports = app => {
     entries = await Entry.get(userEntries)
       .then(e => (entries = [e.plain()]))
       .catch(err => (entries = []));
-    console.log(entries);
+    console.log(req.user.entries);
     res.render('home', { entries });
   });
 
@@ -69,7 +69,7 @@ module.exports = app => {
 
   app.get('/entry/edit/:id', belongsToUser, async (req, res) => {
     const entry = await Entry.findOne({ id: req.params.id });
-    res.render('edit');
+    res.render('edit', {entry});
   });
 
   app.patch('/entry/edit/:id', belongsToUser, (req, res) => {
@@ -77,7 +77,11 @@ module.exports = app => {
   });
 
   // delete an entry
-  app.get('/entry/:id', belongsToUser, (req, res) => {
-    res.render('home');
+  app.get('/entry/delete/:id', belongsToUser, async (req, res) => {
+    const userEntries = req.user.entries;
+    let entries;
+    entries = await Entry.get(userEntries);
+    console.log(req.user.entries);
+    res.render('home', { entries });
   });
 };
