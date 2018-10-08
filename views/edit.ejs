@@ -1,22 +1,16 @@
 
-<form name="form"  enctype="multipart/form-data" method="POST" action="/entry/new">
+<form name="form"  enctype="multipart/form-data" method="UPDATE" action="/entry/edit/<%= entry.id %>">
     <div class="form">
-        <div class="prop">
-            <label>Change the image:</label>
-            <div class="prop">
-                <input type="file" name="photo">
-            </div>
-        </div>
         <div class="prop">
             <label>Title:</label>
             <div class="prop">
-                <input type="text" name="title"> <%= entry.description %> </input>
+                <input type="text" name="title" placeholder=" <%= entry.title %> ">
             </div>
         </div>
         <div class="prop">
             <label>Description:</label>
             <div class="desc">
-                <textarea name="description"> <%= entry.description %></textarea>
+                <textarea name="description" placeholder="<%= entry.description %>"></textarea>
             </div>
         </div>
     </div>
