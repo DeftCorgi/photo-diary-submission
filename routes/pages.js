@@ -33,7 +33,13 @@ module.exports = app => {
     let entries = [];
     if (userEntries.length > 0) {
       await Entry.get(userEntries)
-        .then(e => (entries = e))
+        .then(e => {
+          if (e.length) {
+            entries = e;
+          } else {
+            entries = [e];
+          }
+        })
         .catch(err => {
           console.log(err);
           entries = [];
