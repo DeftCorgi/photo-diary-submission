@@ -71,7 +71,7 @@ module.exports = app => {
     res.render('home');
   });
 
-  app.delete('/entry/:id', (req, res) => {
+  app.delete('/entry/delete/:id', (req, res) => {
     res.render('home');
   });
 };
