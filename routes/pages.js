@@ -30,7 +30,7 @@ module.exports = app => {
 
   app.get('/home', async (req, res) => {
     const userEntries = req.user.entries;
-    let entries;
+    let entries = [];
     entries = await Entry.get(userEntries)
       .then(e => (entries = e))
       .catch(err => {
@@ -63,10 +63,13 @@ module.exports = app => {
   });
 
   app.get('/entry/view/:id', belongsToUser, async (req, res) => {
-    const entry = await Entry.get(req.params.id).catch(err => {
-      console.log(err);
-      console.log(req.params.id);
-    });
+    let entry;
+    entry = await Entry.get(req.params.id)
+      .then(e => (entry = e.plain()))
+      .catch(err => {
+        console.log(err);
+        console.log(req.params.id);
+      });
     res.render('view', { entry });
     console.log(entry);
   });
