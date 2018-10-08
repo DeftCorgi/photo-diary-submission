@@ -60,6 +60,7 @@ module.exports = app => {
   app.get('/entry/view/:id', async (req, res) => {
     const entry = await Entry.findOne({ id: req.params.id });
     res.render('view', { entry });
+    console.log(entry)
   });
 
   app.get('/entry/edit/:id', async (req, res) => {
