@@ -64,15 +64,16 @@ module.exports = app => {
       console.log(req.params.id);
     });
     res.render('view', { entry });
+    console.log(entry)
   });
 
   app.get('/entry/edit/:id', belongsToUser, async (req, res) => {
     const entry = await Entry.findOne({ id: req.params.id });
-    res.render('home');
+    res.render('edit', {entry});
   });
 
   app.patch('/entry/edit/:id', belongsToUser, (req, res) => {
-    res.render('home');
+    res.render('edit');
   });
 
   // delete an entry

@@ -4,7 +4,7 @@
             <a class="view" href="/entry/view/<%= entries[entry].id %>">
                 <img src="<%= entries[entry].photoUrl %>"/> 
                 <div class="overlay">
-                    <a href="#" class="delete"> X </a>
+                    <a href="/entry/delete/<%= entries[entry].id %>" class="delete"> X </a>
                 </div>
                 <div class="caption">
                     <%= entries[entry].title %>
