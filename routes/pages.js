@@ -33,8 +33,12 @@ module.exports = app => {
     let entries;
     entries = await Entry.get(userEntries)
       .then(e => (entries = e))
-      .catch(err => (entries = []));
-    res.render('home', { entries });
+      .catch(err => {
+        console.log(err);
+        entries = [];
+      });
+    const plainEntries = entries.map(e => e.plain());
+    res.render('home', { entries: plainEntries });
   });
 
   app.get('/entry/new', (req, res) => {
@@ -64,12 +68,12 @@ module.exports = app => {
       console.log(req.params.id);
     });
     res.render('view', { entry });
-    console.log(entry)
+    console.log(entry);
   });
 
   app.get('/entry/edit/:id', belongsToUser, async (req, res) => {
     const entry = await Entry.findOne({ id: req.params.id });
-    res.render('edit', {entry});
+    res.render('edit', { entry });
   });
 
   app.patch('/entry/edit/:id', belongsToUser, (req, res) => {
