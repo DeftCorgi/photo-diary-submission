@@ -34,7 +34,6 @@ module.exports = app => {
     entries = await Entry.get(userEntries)
       .then(e => (entries = e))
       .catch(err => (entries = []));
-    console.log(entries);
     res.render('home', { entries });
   });
 
@@ -52,10 +51,10 @@ module.exports = app => {
       console.log('user not found')
     );
     // update the user object
-    await User.update(user.entityKey.id, {
-      entries: [...user.entries, entry.entityKey.id]
-    }).catch(err => console.log(err));
-    user.save();
+    const entries = [...user.entries, entry.entityKey.id];
+    await User.update(user.entityKey.id, { entries }).catch(err =>
+      console.log(err)
+    );
     res.render('view', { entry });
   });
 
