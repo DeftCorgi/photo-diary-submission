@@ -1,15 +1,18 @@
-<div class="photo"> 
-        <img src="<%= entry.photoUrl %>"/> 
-        <div class="overlay">
-            <a href="/entry/delete/<%= entry.id %>" class="delete"> X </a>
-        </div>
-        <div class="caption">
-                <%= entry.title %>
+
+<div class="edit">
+    <div class="photo"> 
+            <img src="<%= entry.photoUrl %>"/> 
+            <div class="overlay">
+                <a href="/entry/delete/<%= entry.id %>" class="delete"> X </a>
             </div>
-        <div class="caption">
-            <%= entry.description %>
-        </div>
-        <div class="eButt"> 
-            <input class="eButton" href="/entry/edit/entry.id">
-        </div>
+            <div class="caption">
+                    <%= entry.title %>
+                </div>
+            <div class="caption">
+                <%= entry.description %>
+            </div>
+            <div class="eButt"> 
+                <a class="ebutton" href="/entry/edit/entry.id"> Edit</a>
+            </div>
+    </div>
 </div>

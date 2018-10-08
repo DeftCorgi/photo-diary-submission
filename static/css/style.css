@@ -164,18 +164,18 @@ li a:hover {
     text-decoration: none;
     outline: none;
     color: #fff;
-    background-color: #FFF021;
+    background-color: #F2E41F;
     border: none;
     border-radius: 15px;
     box-shadow: 0 9px #E0CA28;
     font-family: 'Roboto';
-    margin-bottom: 40%;
+    margin: 20px;
   }
   
-  .ebutton:hover {background-color: #FFF021}
+  .ebutton:hover {background-color: #F2E41F}
   
   .ebutton:active {
-    background-color: #FFF021;
+    background-color: #F2E41F;
     box-shadow: 0 5px #E0CA28;
     transform: translateY(4px);
   }
@@ -218,5 +218,9 @@ form {
     font-family: 'Roboto';
     color: #2B303A;
     padding: 70px;
+}
+.edit {
+    margin-left:25%;
+    margin-right:25%;
 }
 

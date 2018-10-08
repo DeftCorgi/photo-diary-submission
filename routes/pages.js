@@ -2,6 +2,8 @@ const keys = require('../config/keys');
 const Entry = require('../models/entry');
 const User = require('../models/user');
 
+const belongsToUser = require('../middleware/belongsToUser');
+
 // setup multipart form processing
 const multer = require('multer');
 const gcs = require('multer-sharp');
@@ -54,25 +56,28 @@ module.exports = app => {
       entries: [entry.entityKey.id]
     }).catch(err => console.log(err));
     res.render('view', { entry });
-    console.log(req.user.entries);
   });
 
-  app.get('/entry/view/:id', async (req, res) => {
-    const entry = await Entry.findOne({ id: req.params.id });
+  app.get('/entry/view/:id', belongsToUser, async (req, res) => {
+    const entry = await Entry.get(req.params.id).catch(err => {
+      console.log(err);
+      console.log(req.params.id);
+    });
     res.render('view', { entry });
     console.log(entry)
   });
 
-  app.get('/entry/edit/:id', async (req, res) => {
+  app.get('/entry/edit/:id', belongsToUser, async (req, res) => {
     const entry = await Entry.findOne({ id: req.params.id });
-    res.render('home');
+    res.render('edit');
   });
 
-  app.patch('/entry/edit/:id', (req, res) => {
-    res.render('home');
+  app.patch('/entry/edit/:id', belongsToUser, (req, res) => {
+    res.render('edit');
   });
 
-  app.delete('/entry/delete/:id', (req, res) => {
+  // delete an entry
+  app.get('/entry/:id', belongsToUser, (req, res) => {
     res.render('home');
   });
 };
