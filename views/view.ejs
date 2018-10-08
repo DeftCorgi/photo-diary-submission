@@ -1,5 +1,8 @@
 <div class="photo"> 
         <img src="<%= entry.photoUrl %>"/> 
+        <div class="overlay">
+            <a href="/entry/delete/<%= entries[entry].id %>" class="delete"> X </a>
+        </div>
         <div class="caption">
                 <%= entry.title %>
             </div>
