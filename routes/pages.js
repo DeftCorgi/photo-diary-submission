@@ -76,7 +76,11 @@ module.exports = app => {
   });
 
   app.get('/entry/edit/:id', belongsToUser, async (req, res) => {
-    const entry = await Entry.findOne({ id: req.params.id });
+    const entry = await Entry.get(req.params.id).catch(err => {
+      console.log(err);
+      console.log(req.params.id);
+      return res.redirect('/');
+    });
     res.render('edit', { entry });
   });
 
