@@ -31,12 +31,15 @@ module.exports = app => {
   app.get('/home', async (req, res) => {
     const userEntries = req.user.entries;
     let entries = [];
-    entries = await Entry.get(userEntries)
-      .then(e => (entries = e))
-      .catch(err => {
-        console.log(err);
-        entries = [];
-      });
+    if (userEntries.length > 0) {
+      await Entry.get(userEntries)
+        .then(e => (entries = e))
+        .catch(err => {
+          console.log(err);
+          entries = [];
+        });
+    }
+    // console.log(entries);
     const plainEntries = entries.map(e => e.plain());
     res.render('home', { entries: plainEntries });
   });
@@ -59,23 +62,25 @@ module.exports = app => {
     await User.update(user.entityKey.id, { entries }).catch(err =>
       console.log(err)
     );
-    res.render('view', { entry });
+    res.redirect('view/' + entry.entityKey.id);
   });
 
   app.get('/entry/view/:id', belongsToUser, async (req, res) => {
     let entry;
-    entry = await Entry.get(req.params.id)
-      .then(e => (entry = e.plain()))
-      .catch(err => {
-        console.log(err);
-        console.log(req.params.id);
-      });
-    res.render('view', { entry });
-    console.log(entry);
+    entry = await Entry.get(req.params.id).catch(err => {
+      console.log(err);
+      console.log(req.params.id);
+      return res.redirect('/');
+    });
+    res.render('view', { entry: entry.plain() });
   });
 
   app.get('/entry/edit/:id', belongsToUser, async (req, res) => {
-    const entry = await Entry.findOne({ id: req.params.id });
+    const entry = await Entry.get(req.params.id).catch(err => {
+      console.log(err);
+      console.log(req.params.id);
+      return res.redirect('/');
+    });
     res.render('edit', { entry });
   });
 
@@ -89,6 +94,6 @@ module.exports = app => {
     const user = await User.findOne({ id: req.user.id });
     const entries = user.entries.filter(e => e.id != req.params.id);
     await User.update(user.entityKey.id, { entries });
-    res.redirect('home');
+    res.redirect('/');
   });
 };
