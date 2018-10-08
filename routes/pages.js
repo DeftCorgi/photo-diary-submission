@@ -56,11 +56,13 @@ module.exports = app => {
       entries: [entry.entityKey.id]
     }).catch(err => console.log(err));
     res.render('view', { entry });
-    console.log(req.user.entries);
   });
 
   app.get('/entry/view/:id', belongsToUser, async (req, res) => {
-    const entry = await Entry.findOne({ id: req.params.id });
+    const entry = await Entry.get(req.params.id).catch(err => {
+      console.log(err);
+      console.log(req.params.id);
+    });
     res.render('view', { entry });
   });
 
