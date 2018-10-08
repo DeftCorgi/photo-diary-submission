@@ -85,7 +85,7 @@ module.exports = app => {
     await Entry.delete(req.params.id);
     const user = await User.findOne({ id: req.user.id });
     const entries = user.entries.filter(e => e.id != req.params.id);
-    User.update(user.entityKey.id, { entries });
-    res.render('home');
+    await User.update(user.entityKey.id, { entries });
+    res.redirect('home');
   });
 };
