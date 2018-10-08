@@ -103,8 +103,8 @@ li a:hover {
     bottom: 0;
     left: 90%;
     right: 0%;
-    height: 12.5%;
-    width: 15%;
+    height: 50px;
+    width: 50px;
     opacity: 0;
     transition: .3s ease;
     background-color: red;
