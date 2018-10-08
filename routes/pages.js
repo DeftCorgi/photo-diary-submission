@@ -32,7 +32,7 @@ module.exports = app => {
     const userEntries = req.user.entries;
     let entries;
     entries = await Entry.get(userEntries)
-      .then(e => (entries = [e.plain()]))
+      .then(e => (entries = e))
       .catch(err => (entries = []));
     console.log(req.user.entries);
     res.render('home', { entries });
@@ -53,8 +53,9 @@ module.exports = app => {
     );
     // update the user object
     await User.update(user.entityKey.id, {
-      entries: [entry.entityKey.id]
+      entries: [...user.entries, entry.entityKey.id]
     }).catch(err => console.log(err));
+    user.save();
     res.render('view', { entry });
   });
 
@@ -78,10 +79,18 @@ module.exports = app => {
 
   // delete an entry
   app.get('/entry/delete/:id', belongsToUser, async (req, res) => {
+<<<<<<< HEAD
     const userEntries = req.user.entries;
     let entries;
     entries = await Entry.get(userEntries);
     console.log(req.user.entries);
     res.render('home', { entries });
+=======
+    await Entry.delete(req.params.id);
+    const user = await User.findOne({ id: req.user.id });
+    const entries = user.entries.filter(e => e.id != req.params.id);
+    User.update(user.entityKey.id, { entries });
+    res.render('home');
+>>>>>>> 0b1150b154328f8a49a17042a26b3779f380a51e
   });
 };
