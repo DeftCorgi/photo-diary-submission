@@ -92,7 +92,6 @@ module.exports = app => {
 
   app.post('/entry/edit/:id', async (req, res) => {
     const { title, description } = req.body;
-    console.log(req.body);
     await Entry.update(req.params.id, { title, description }).catch(err =>
       console.log(err)
     );
