@@ -90,8 +90,9 @@ module.exports = app => {
     res.render('edit', { entry: entry.plain() });
   });
 
-  app.post('/entry/edit/:id', async (req, res) => {
-    const { title, description } = req.body;
+  app.get('/entry/update/:id', belongsToUser, async (req, res) => {
+    const { title, description } = req.query;
+    console.log(req.params);
     await Entry.update(req.params.id, { title, description }).catch(err =>
       console.log(err)
     );
