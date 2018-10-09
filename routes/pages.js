@@ -87,11 +87,16 @@ module.exports = app => {
       console.log(req.params.id);
       return res.redirect('/');
     });
-    res.render('edit', { entry });
+    res.render('edit', { entry: entry.plain() });
   });
 
-  app.patch('/entry/edit/:id', belongsToUser, (req, res) => {
-    res.render('edit');
+  app.post('/entry/edit/:id', async (req, res) => {
+    const { title, description } = req.body;
+    console.log(req.body);
+    await Entry.update(req.params.id, { title, description }).catch(err =>
+      console.log(err)
+    );
+    res.redirect('/entry/view/' + req.params.id);
   });
 
   // delete an entry
