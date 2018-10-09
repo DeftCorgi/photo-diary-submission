@@ -8,11 +8,13 @@
     <% if(typeof user === 'undefined') { %>
         <%- body %>
     <% } else { %>
+        <%- include('partials/nav') %>
         <div class="content">
-            <%- include('partials/nav') %>
+           
             <div class="entries">
                 <%- body %>
             </div>
+            
         </div>
     <% } %>
     <%- include('partials/footer'); %>
